@@ -1,0 +1,110 @@
+{% extends "base_v.html" %}
+{% block html %}
+
+<!doctype html>
+<html {% block html_tag_attributes %}{{ block.super }}{% endblock %}>
+
+<head>
+  {% block head %}{{ block.super }}{% endblock %}
+
+</head>
+
+<body {% block body_tag_attributes %}{{ block.super }}{% endblock %}>
+    {% block body %}   {{ctx}} {{ block.super }}{% endblock %}
+  <!-- html-webpack-inject will inject body assets below -->
+
+
+  
+  <script>
+    // Variables de Usuario
+    let Duser = "{{user}}"
+    let first_name = '{{ user.first_name }}'
+    let last_name = '{{ user.last_name}}'
+    let USER_LOCAL = '{{ user.first_name }} {{ user.last_name}}'
+    let Demail = "{{user.email}}"
+    let CSRF_TOKEN = '{{ csrf_token }}'
+    let ID_Token = "{{ user.id }}"
+    var API = '/api/v1.1/'
+    var Query = '/query/v1.1/'
+    var Local = '/api/v1.1/'
+    var ctx = '{{ctx}}'
+
+    //Permisos
+    let permsx = '{{perms.control}}'
+            //alert(permsx)
+
+            //alert(permsx.indexOf('control.View_Dashboar'))
+  </script>
+
+
+  <script>
+    function formatDatex(Fecha){
+            var fecha = new Date(Fecha)
+            var dias = 1 // Número de días a agregar
+            fecha.setDate(fecha.getDate() + dias)
+            return fecha
+        }
+  </script>
+
+  <script>
+    function compareValues(key, order = 'asc') {
+      return function innerSort(a, b) {
+        if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+          // property doesn't exist on either object
+          return 0;
+        }
+
+        const varA = (typeof a[key] === 'string')
+          ? a[key].toUpperCase() : a[key];
+        const varB = (typeof b[key] === 'string')
+          ? b[key].toUpperCase() : b[key];
+
+        let comparison = 0;
+        if (varA > varB) {
+          comparison = 1;
+        } else if (varA < varB) {
+          comparison = -1;
+        }
+        return (
+          (order === 'desc') ? (comparison * -1) : comparison
+        );
+      };
+    }
+  </script>
+
+
+
+  <style>
+    html {
+      --scrollbarBG: #c2bbbb;
+      --thumbBG: #d32323;
+    }
+
+
+
+
+    body::-webkit-scrollbar {
+      width: 14px;
+    }
+
+    body {
+      scrollbar-width: thin;
+      scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    }
+
+    body::-webkit-scrollbar-track {
+      background: var(--scrollbarBG);
+
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background-color: var(--thumbBG);
+      border-radius: 5px;
+      border: 1px solid var(--scrollbarBG);
+    }
+  </style>
+
+</body>
+
+</html>
+{% endblock %}
