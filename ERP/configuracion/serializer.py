@@ -143,6 +143,7 @@ class PurchaseOrdersSerializer(serializers.ModelSerializer):
     PurchaseType=PurchaseTypeSerializer()
     TypeCurrency = CurrencySerializer()
     PurchaseAgent=UserSerializer()
+    Customer=AdrressesSerializer()
     
     class Meta:
         model = PurchaseOrders

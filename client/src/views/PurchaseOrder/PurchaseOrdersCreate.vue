@@ -22,6 +22,16 @@
                 ></v-select>
               </v-col>
               <v-col cols="12" sm="12" md="3">
+                <v-select
+                    outlined
+                    dense
+                    v-model="Customer"
+                    label="Customer"
+                    :items="CustomerList"
+                    item-text="PrincipalName"
+                ></v-select>
+              </v-col>
+              <v-col cols="12" sm="12" md="2">
 
                 <v-select
                     outlined
@@ -33,7 +43,7 @@
                 ></v-select>
 
               </v-col>
-              <v-col cols="12" sm="12" md="3">
+              <v-col cols="12" sm="12" md="2">
                 
                 <v-select
                     outlined
@@ -46,7 +56,7 @@
 
               </v-col>
 
-              <v-col cols="12" sm="12" md="3">
+              <v-col cols="12" sm="12" md="2">
                   
                   <v-autocomplete
                     outlined
@@ -355,9 +365,11 @@ export default {
     CurrencyList:[],
     MaterialList:[],
     UsersList:[],
+    CustomerList:[],
     
     //Formulario
     Vendor:'',
+    Customer:'',
     ShipTo:'',
     Bill:'',
     files: [],
@@ -411,6 +423,9 @@ export default {
           for(i in res.data){
               if(res.data[i].is_vendor){
                   self.VendorList.push(res.data[i])
+              }
+              if(res.data[i].is_customer){
+                  self.CustomerList.push(res.data[i])
               }
           }   
       })
@@ -615,7 +630,8 @@ export default {
               Tax_:self.Tax_,
               SubTotal_:self.SubTotal_,
               Total_:self.Total_,
-              PurchaseType:self.PurchaseType
+              PurchaseType:self.PurchaseType,
+              Customer:self.Customer
           }
       
       
@@ -643,6 +659,7 @@ export default {
           self.TypeCurrency=''
           self.PurchaseAgent=''
           self.PurchaseType=''
+          self.Customer = ''
           self.desserts=[]
 
           self.Tax_ =0

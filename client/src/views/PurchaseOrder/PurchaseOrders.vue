@@ -30,7 +30,57 @@
                     {{item.TypeCurrency.CurrencyAbre}}{{item.Tax.toLocaleString("en-US", {minimumFractionDigits: 2})}}
                 </template>
 
+                <template v-slot:item.Action="{ item }">
+                    <template v-if="item.Status.StatusNames==='Issued'">
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-icon
+                                color="red"
+                                dark
+                                v-bind="attrs"
+                                v-on="on"
+                                >
+                                mdi-cancel
+                                </v-icon>
+                            </template>
+                            <span>Void</span>
+                        </v-tooltip>
+                    </template>
 
+                    <template v-if="item.Status.StatusNames==='Propose'">
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-icon
+                                color="red"
+                                dark
+                                v-bind="attrs"
+                                v-on="on"
+                                >
+                                mdi-cancel
+                                </v-icon>
+                            </template>
+                            <span>Void</span>
+                        </v-tooltip>
+                        <v-icon>mdi-math-norm</v-icon> 
+                        
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-icon
+                                color="green"
+                                dark
+                                v-bind="attrs"
+                                v-on="on"
+                                >
+                                mdi-check
+                                </v-icon>
+                            </template>
+                            <span>Issued</span>
+                        </v-tooltip>
+
+                        
+                    </template>
+                  
+                </template>
 
                 <template v-slot:expanded-item="{ headers, item }">
                     <td :colspan="headers.length">
@@ -52,7 +102,11 @@
                        
                     </td>
                 </template>
-
+                <template v-slot:item.Customer.PrincipalName="{ item }">
+                    <v-template v-if="item.Customer.PrincipalName != item.Vendor.PrincipalName">
+                        {{item.Customer.PrincipalName}}
+                    </v-template>
+                </template>
 
                 <template v-slot:top>
                 <v-toolbar
@@ -228,10 +282,12 @@
 <script>
 import Axios from 'axios'
 import Alert from "@/components/Alert.vue"
+import Template from '../../Template.vue'
 
 export default {
     components: {
-       Alert
+       Alert,
+        Template
     },
     name: "",
     data: () => ({
@@ -261,6 +317,7 @@ export default {
         headers: [
             { text: '', value: 'data-table-expand', 'class':'white--text black darken-3 ' },
             { text: 'Status', value: 'Status.StatusNames' , 'class':'white--text black darken-3 '},
+            { text: 'Customer', value: 'Customer.PrincipalName' , 'class':'white--text black darken-3 '},
             { text: 'PO', value: 'PO' , 'class':'white--text black darken-3 '},
             { text: 'Purchase Agent', value: 'PurchaseAgent.username' , 'class':'white--text black darken-3 '},
 
@@ -272,6 +329,7 @@ export default {
             { text: 'Tax', value: 'Tax' , 'class':'white--text black darken-3 '},
             { text: 'SubTotal', value: 'SubTotal' , 'class':'white--text black darken-3 '},
             { text: 'Total', value: 'Total', 'class':'white--text black darken-3 ' },
+            { text: 'Action', value: 'Action', 'class':'white--text black darken-3 ' },
             //{ text: 'Actions', value: 'actions', sortable: false, 'class':'white--text black darken-3 ' },
         ],
 

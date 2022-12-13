@@ -286,7 +286,7 @@ class PurchaseOrders(ModelBase):
     PurchaseAgent = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE,related_name='PurchaseOrdersProfile')
     Nota = models.TextField(max_length=1200, blank=True,null=True) # Comentarios
     TypeCurrency = models.ForeignKey(Currency, on_delete=models.CASCADE,related_name='PurchaseOrdersCurrency', blank=True,null=True)
-
+    Customer = models.ForeignKey(Adrresses, on_delete=models.CASCADE,related_name='PurchaseOrdersAdrressesCustomer',blank=True,null=True)
 
     
 

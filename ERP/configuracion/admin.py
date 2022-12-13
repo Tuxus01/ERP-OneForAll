@@ -90,7 +90,7 @@ admin.site.register(Customer,CustomerAdmin) """
 
 class PurchaseOrdersAdmin(admin.ModelAdmin):
     list_display = ('id','PO','Branch','Vendor','Tax','SubTotal','Total','Status')
-    list_filter = ('Branch','PO', 'Vendor')
+    list_filter = ('Branch', 'Vendor','Status')
     search_fields = ['PO','Branch','Vendor','Tax','SubTotal','Total','Status']
 admin.site.register(PurchaseOrders,PurchaseOrdersAdmin)
 

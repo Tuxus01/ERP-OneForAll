@@ -354,8 +354,6 @@ def ComponentAxios(request,*args, **kwargs):
             return JsonResponse({'Status':'Not-Ok'},safe=False)
 
 
-
-
 @method_decorator(csrf_exempt)
 def UnitsAxios(request,*args, **kwargs):
     if request.method == 'POST':
@@ -551,10 +549,11 @@ def SavePOManualAxios(request,*args, **kwargs):
 
         
         Action_Status = False
-        #print(editedItem)
+        print(editedItem)
         if action == 'Create':
             detail = body['detail']
             Vendor = Adrresses.objects.filter(PrincipalName=editedItem['Vendor'])[:1]
+            Customer = Adrresses.objects.filter(PrincipalName=editedItem['Customer'])[:1]
             Status = StatusNames.objects.filter(StatusNames='Propose')[:1]
             Bill = Warehouse.objects.filter(WarehouseName=editedItem['Bill'])[:1]
             Ship = Warehouse.objects.filter(WarehouseName=editedItem['ShipTo'])[:1]
@@ -577,6 +576,7 @@ def SavePOManualAxios(request,*args, **kwargs):
 
 
             a.Vendor = Vendor[0]
+            a.Customer = Customer[0]
             a.Status = Status[0]
             a.PurchaseType = PurchaseTypex[0]
             a.Bill = Bill[0]
