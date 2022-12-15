@@ -102,11 +102,16 @@
                        
                     </td>
                 </template>
-                <template v-slot:item.Customer.PrincipalName="{ item }">
-                    <v-template v-if="item.Customer.PrincipalName != item.Vendor.PrincipalName">
-                        {{item.Customer.PrincipalName}}
-                    </v-template>
-                </template>
+                
+                    <template v-slot:item.Customer.PrincipalName="{ item }">
+                        <v-template v-if="item.Customer">
+                            <v-template v-if="item.Customer.PrincipalName != item.Vendor.PrincipalName">
+                                {{item.Customer.PrincipalName}}
+                            </v-template>
+                        </v-template>
+                    </template>
+              
+                
 
                 <template v-slot:top>
                 <v-toolbar
